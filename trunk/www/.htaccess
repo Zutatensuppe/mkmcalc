@@ -1,0 +1,8 @@
+RewriteEngine On
+
+
+# Statische Files sind ok!
+RewriteCond %{REQUEST_URI} !\.(png|css)$
+
+# Rest geht auf den dispatcher
+RewriteRule .* index.php [L]
