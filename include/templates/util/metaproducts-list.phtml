@@ -1,0 +1,85 @@
+<?php
+$priceTotal = 0;
+?>
+<h1 class="headline"><?php echo $this->vars->headline; ?></h1>
+<table class="list">
+	<thead>
+		<tr>
+			<th>
+			</th>
+			<th>
+				Kartenname (EN)
+			</th>
+			<th>
+				Kartenname (DE)
+			</th>
+			<th>
+				Bester Preis (DE/AT)
+			</th>
+			<th>
+				Aktionen
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php
+		foreach ( $this->vars->metaproducts as $list_metaproduct ) {
+
+			?>
+			<tr>
+				<td>#<?php echo $list_metaproduct->idMetaproduct; ?></td>
+				<td>
+					<div class="onhoverimage">
+						<?php echo $list_metaproduct->metaproductName; ?>
+						<img src="http://www.magickartenmarkt.de/<?php echo $list_metaproduct->imageRow->image; ?>"/>
+					</div>
+				</td>
+				<td>
+					<?php 
+					if ( $list_metaproduct->metaproductNameDe === $list_metaproduct->metaproductName ) {
+						echo '-';
+					} else {
+						echo $list_metaproduct->metaproductNameDe;
+					}
+					?>
+				</td>
+				<?php
+				$class = '';
+				if ( !empty($list_metaproduct->bestpriceRow) ) {
+					$price = $list_metaproduct->bestpriceRow->price/100.0;
+					$priceTotal+=$price;
+					if ( $price > 10 ) {
+						$class = 'above-10';
+					} else if ( $price > 5 ) {
+						$class = 'above-5';
+					} else if ( $price > 1 ) {
+						$class = 'above-1';
+					}
+				} else {
+					$price = 0;
+				}
+				?>
+				<td class="price <?php echo $class; ?>">
+					<?php echo str_pad(number_format($price, 2), 0).' EUR'; ?>
+				</td>
+				<td>
+					<a href="<?php echo $this->vars->url; ?>&action=removeCards&metaproductIds=<?php echo $list_metaproduct->idMetaproduct; ?>">entfernen</a>
+				</td>
+			</tr>
+			<?php
+		}
+		?>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td><?php echo count($this->vars->metaproducts); ?> Karten</td>
+			<td></td>
+			<td></td>
+			<td>
+				&sum; <?php echo str_pad(number_format($priceTotal, 2), 0).' EUR'; ?><br />
+				+ ca. <?php echo count($this->vars->metaproducts)*2.0; ?> EUR Versand (Bei Einzelkauf)
+			</td>
+			<td></td>
+		</tr>
+	</tfoot>
+</table>

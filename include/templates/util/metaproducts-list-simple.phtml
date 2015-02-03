@@ -1,0 +1,14 @@
+
+<div class="headline"><?php echo $this->vars->headline; ?></div>
+<table class="list">
+<?php
+foreach ( $this->vars->metaproducts as $metaproduct ) {
+	?>
+	<tr>
+		<td><?php echo $metaproduct->metaproductName; ?></td>
+		<td><?php echo $metaproduct->metaproductNameDe; ?></td>
+	</tr>
+	<?php
+}
+?>
+</table>

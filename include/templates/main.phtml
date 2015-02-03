@@ -1,0 +1,40 @@
+<!DOCTYPE html><html>
+<head>
+
+
+	<?php
+	if ( !empty($this->vars->header_scripts) ) {
+		foreach ( $this->vars->header_scripts as $header_script ) {
+			?>
+			<script type="text/javascript" src="<?php echo $header_script; ?>"></script>
+			<?php
+		}
+	}
+	?>
+	<?php
+	if ( !empty($this->vars->header_styles) ) {
+		foreach ( $this->vars->header_styles as $header_style ) {
+			?>
+			<link rel="stylesheet" href="<?php echo $header_style; ?>" />
+			<?php
+		}
+	}
+	?>
+	<?php
+	if ( !empty($this->vars->header_inline_scripts) ) {
+		foreach ( $this->vars->header_inline_scripts as $header_inline_script ) {
+			echo $header_inline_script;
+		}
+	}
+	?>
+</head>
+<body>
+
+	<div id="outermid">
+		<div id="innermid" class="inner">
+			<?php echo $this->vars->page_content; ?>
+		</div>
+	</div>
+
+</body>
+</html>

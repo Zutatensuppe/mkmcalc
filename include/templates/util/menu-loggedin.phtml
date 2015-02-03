@@ -1,0 +1,18 @@
+<div class="menu">
+	<span>Willkommen zurück, <?php echo $this->vars->username; ?> 
+	
+	<form action="<?php echo $this->vars->action_url; ?>" method="post">
+		<input type="hidden" name="action" value="logout" />
+
+		<input type="submit" value="Logout!" />
+	</form></span>
+	<ul>
+	<?php
+	foreach ( $this->vars->menuitems as $menuitem ) {
+		?>
+		<li><a href="<?php echo $menuitem['link']; ?>"><?php echo $menuitem['linktext']; ?></a></li>
+		<?php
+	}
+	?>
+	</ul>
+</div>

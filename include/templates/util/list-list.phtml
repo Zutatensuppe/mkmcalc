@@ -1,0 +1,31 @@
+
+
+<h1 class="headline"><?php echo $this->vars->headline; ?></h1>
+<table class="list">
+	<thead>
+		<tr>
+			<th>Listenname</th>
+			<th>Aktionen</th>
+		</tr>
+	</thead>
+	<tbody>
+<?php
+foreach ( $this->vars->lists as $list ) {
+	?>
+	<tr>
+		<td>
+			<a href="<?php echo Config::get('siteurl'); ?>/lists/<?php echo $list->idList; ?>/"><?php echo $list->name; ?></a>
+		</td>
+		<td>
+			<form action="<?php echo $this->vars->action_url; ?>" method="post">
+				<input type="hidden" name="action" value="deleteList" />
+				<input type="hidden" name="idList" value="<?php echo $list->idList; ?>" />
+				<input type="submit" value="löschen" />
+			</form>
+		</td>
+	</tr>
+	<?php
+}
+?>
+	<tbody>
+</table>

@@ -1,0 +1,111 @@
+
+body { margin: 0; }
+
+
+#outermid {}
+#outermid .inner { width: 1000px; margin: 0 auto; background: #efefef; padding: 16px; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; }
+
+
+table.list { border-collapse: collapse; margin: 0 0 10px 0; }
+table.list tr td,
+table.list tr th { padding: 3px 10px; }
+
+table.list tfoot th,
+table.list thead th,
+table.list tfoot td,
+table.list thead td { background: #ccc; font-weight: bold; border: solid 1px #444; }
+table.list tbody tr td,
+table.list tbody tr th { border: solid 1px #ddd; }
+table.list tbody tr:nth-child(odd) td { background: #f1f1f1; }
+table.list tbody tr:last-child td { border-bottom: solid 1px #444; }
+
+.onhoverimage { position: relative; }
+.onhoverimage img { display: none; }
+.onhoverimage:hover img { display: block; position: absolute; top: 0; left: 100%; z-index: 1; }
+
+table.list td.price.above-1 { background: yellow; }
+table.list td.price.above-5 { background: orange; }
+table.list td.price.above-10 { background: rgb(255, 79, 85); color: white; }
+form { margin: 0; }
+
+form .seller-countries,
+form .card-languages,
+form .more-settings { margin: 0 0 10px 0; }
+form .card-languages label,
+form .seller-countries label { width: 155px; display: inline-block; }
+
+form .card-languages .headline,
+form .seller-countries .headline,
+form .more-settings .headline { margin: 0 0 5px 0;}
+
+
+form.list-create-form, 
+form.calc-form { margin: 10px 0;}
+
+table { border-collapse: collapse; }
+table td,
+table th { border: solid 1px black; }
+
+table.details { display: none; }
+
+
+
+
+table.list { border-collapse: collapse; }
+table.list tr td,
+table.list tr th { padding: 3px 10px; }
+
+table.list tfoot th,
+table.list thead th,
+table.list tfoot td,
+table.list thead td { background: #ccc; font-weight: bold; border: solid 1px #444; }
+table.list tbody tr td,
+table.list tbody tr th { border: solid 1px #ddd; }
+table.list tbody tr:nth-child(odd) td { background: #f1f1f1; }
+table.list tbody tr:last-child td { border-bottom: solid 1px #444; }
+
+.onhoverimage { position: relative; }
+.onhoverimage img { display: none; }
+.onhoverimage:hover img { display: block; position: absolute; top: 0; left: 100%; z-index: 1; }
+
+table.list td.price.above-1 { background: yellow; }
+table.list td.price.above-5 { background: orange; }
+table.list td.price.above-10 { background: rgb(255, 79, 85); color: white; }
+.flag { background-image: url(../images/flags.png); background-repeat: no-repeat; width: 16px; height: 11px; display: inline-block; background-position: 16px 0; }
+.flag.flag-D { background-position: -112px 0; }
+.flag.flag-IT { background-position: -272px 0; }
+.flag.flag-AT { background-position: 0 0; }
+.flag.flag-GB { background-position: -208px 0; }
+.flag.flag-CH { background-position: -64px 0; }
+.flag.flag-ES { background-position: -160px 0; }
+.flag.flag-PT { background-position: -416px 0; }
+.flag.flag-FR { background-position: -192px 0; }
+.flag.flag-BE { background-position: -16px 0; }
+.flag.flag-FI { background-position: -176px 0; }
+.flag.flag-NL { background-position: -368px 0; }
+.flag.flag-GR { background-position: -224px 0; }
+.flag.flag-PL { background-position: -400px 0; }
+.flag.flag-SG { background-position: -464px 0; }
+.flag.flag-DK { background-position: -128px 0; }
+.flag.flag-CZ { background-position: -96px 0; }
+.flag.flag-SI { background-position: -480px 0; }
+.flag.flag-LU { background-position: -320px 0; }
+.flag.flag-SE { background-position: -448px 0; }
+.flag.flag-IE { background-position: -256px 0; }
+.flag.flag-RO { background-position: -432px 0; }
+.flag.flag-EE { background-position: -144px 0; }
+.flag.flag-BG { background-position: -32px 0; }
+.flag.flag-JP { background-position: -560px 0; }
+.flag.flag-LT { background-position: -304px 0; }
+.flag.flag-SK { background-position: -480px 0; }
+.flag.flag-CA { background-position: -48px 0; }
+.flag.flag-MT { background-position: -352px 0; }
+.flag.flag-HU { background-position: -240px 0; }
+.flag.flag-HR { background-position: -544px 0; }
+.flag.flag-NO { background-position: -384px 0; }
+.flag.flag-CY { background-position: -80px 0; }
+
+
+.menu form { display: inline; }
+
+div.headline { font-weight: bold; }

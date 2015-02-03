@@ -1,0 +1,631 @@
+
+Æther Vial
+Belbe's Portal
+// Cryptic Gateway
+Deathrender
+Dragon Arch
+// Flash
+Mindwrack Liege
+Quicksilver Amulet
+Sneak Attack
+// Soul Foundry
+
+
+Cyclonic Rift
+Active Volcano
+// Æther Tradewinds
+Banishing Knack
+Banishing Light
+Capsize
+Chain of Vapor
+Devastation Tide
+Echoing Truth 
+Faith's Reward
+// Flickerwisp
+// Heidar, Rimewind Master
+// Into the Roil
+// Regress
+Rescind
+Rescue
+Retraction Helix
+// Riftwing Cloudskate
+Rushing River
+// Tidespout Tyrant
+Venser, Shaper Savant
+Venser, the Sojourner
+Void Snare
+Wipe Away
+Hoodwink
+Kiora's Dismissal
+Leonin Relic-Warder
+// Stern Proctor
+
+
+Upheaval
+// Jokulhaups
+// Obliterate
+
+
+Cleansing Meditation
+// Replenish
+
+
+// Detritivore
+Dwarven Blastminer
+// Dwarven Driller
+Dwarven Miner
+Fire Snake
+Goblin Gardener
+Goblin Ruinblaster
+// Mine Layer
+Ogre Arsonist
+// Ravenous Baboons
+// Seismic Mage
+Shivan Harvest
+
+
+
+
+
+
+# zu teuer:
+# Dong Zhou, the Tyrant (R)
+# Goblin Settler (R)
+# Ravaging Horde (R)
+
+
+
+
+
+
+# hier beginnen die echten karten:
+
+// Æther Charge        #  (R)  === Ätherattacke
+Geistcatcher's Rig (R)
+Purphoros, God of the Forge (R)
+
+// Darigaaz, the Igniter (RGB)
+Vigilante Justice (R)
+// Warstorm Surge (R)
+// Where Ancients Tread (R)
+
+// Akoum Boulderfoot    (R)
+Ana Battlemage       (GUB)
+Anathemancer         (RB)
+// Blisterstick Shaman  (R)
+// Bogardan Hellkite    (R)
+// Caldera Hellion      (R)
+Cloudthresher        (G)
+// Corrupt Eunuchs      (R)
+// Crater Hellion     (R)
+Deadshot Minotaur    (RG)
+Deathforge Shaman    (R)
+Electropotence (R)
+// Fanatic of Mogis (R)
+Fire Dragon (R)
+// Fire Imp (R)
+# Firemaw Kavu (R)
+Flametongue Kavu (R)
+Forge Devil (R)
+// Forgeborn Oreads (R)
+// Foundry Champion (RW)
+// Ghitu Slinger (R)
+Goblin Commando (R)
+// Goretusk Firebeast (R)
+Hellhole Rats (RB) 
+// Inferno Titan (R)
+// Keldon Champion (R)
+// Keldon Marauders (R)
+// Kessig Malcontents (R)
+// Magma Giant (R)
+// Mardu Heart-Piercer (R)
+// Murasa Pyromancer (R)
+// Murderous Redcap (RB)
+Nessian Wilds Ravager (G)
+Noggle Hedge-Mage (RU)
+Outrage Shaman (R)
+Pardic Arsonist (R)
+// Pharagax Giant (R)
+// Scourge of Valkas (R)
+// Sparkcaster (RG)
+Sparkmage Apprentice (R)
+Spawn of Thraxes (R)
+// Stalking Yeti (R)
+Steamcore Weird (RU)
+Subterranean Shambler (R)
+// Tajuru Archer (G)
+// Thornscape Battlemage (GRW)
+// Thunder Dragon (R)
+Thundercloud Shaman (R)
+Thundermaw Hellkite (R)
+Torch Slinger (R)
+// Tornado Elemental (G)
+Voracious Dragon (R)
+Blister Beetle (B)
+Cultbrand Cinder (RB)
+Doomwake Giant (B)
+Gwyllion Hedge-Mage (BW)
+Noxious Ghoul (B)
+Orzhov Pontiff (BW)
+// Rank and File (B)
+// Skinrender (B)
+Soul Snuffers (B)
+
+
+// Pith Driller (/)
+// Grim Poppet (/)
+Meteorite (/)
+Mortarpod (/)
+Sword of the Ages (/)
+Contagion Clasp (/)
+
+// Carnifex Demon (B)
+// Valakut, the Molten Pinnacle (R)
+// Ulasht, the Hate Seed (RG)
+Spitting Hydra (R)
+Siege-Gang Commander (R)
+Kuldotha Flamefiend  (R)
+Galvanic Arc (R)
+// Lightning Diadem (R)
+Cosi's Ravager       (R)
+Cragganwick Cremator  (R)
+Flayer of the Hatebound (R)
+// Spitebellows (R)
+
+
+
+
+
+
+
+# ETB DESTROY
+
+Ogre Arsonist (R)
+Avalanche Riders (R)
+Ravenous Baboons (R)
+Goblin Ruinblaster (R)
+Faultgrinder (R)
+Woodfall Primus (G)
+// Bala Ged Scorpion (B)
+// Acid Web Spider (G)
+Siege Dragon (R)
+// Final-Sting Faerie  (B)
+// Acidic Slime (G)
+// Nekrataal (B)
+Tuktuk Scrapper (R)
+Viridian Corrupter (G)
+Viridian Shaman (G)
+Wickerbough Elder (G) 
+// Bane of Progress (G)
+// Batterhorn (R)
+Big Game Hunter (B)
+Bone Shredder (B)
+Dakmor Lancer (B)
+// Dark Hatchling (B)
+Dread Cacodemon (B)
+Final-Sting Faerie (B)
+// Fleshpulper Giant (R)
+Halo Hunter (B)
+// Hammerheim Deadeye (R)
+Heartstabber Mosquito (B)
+Indrik Stomphowler (G)
+// Ingot Chewer (R)
+// Keldon Vandals (R)
+// Manic Vandal (R)
+Marshdrinker Giant (G)
+// Mold Shambler (G)
+Myojin of Infinite Rage (R)
+Nessian Demolok (G)
+Ogre Gatecrasher (R)
+Oran-Rief Recluse (G)
+// Orzhov Euthanist (B)
+// Oxidda Scrapmelter (R)
+// Reclamation Sage (G)
+// Reiver Demon (B)
+Serpent Assassin (B)
+// Rustspore Ram (/)
+Setessan Starbreaker (G)
+Shadowborn Demon (B)
+Shivan Emissary (RB)
+// Shriekmaw (B)
+// Stingerfling Spider (G)
+Sylvan Primordial (G)
+// Terastodon (G)
+// Thunderscape Battlemage (RBG)
+// Tin Street Hooligan (RG)
+// Uktabi Orangutan (G)
+// Verduran Emissary (GR)
+Vithian Renegades (RG)
+Wei Assassins (B)
+// Wild Celebrants (R)
+// Yuki-Onna (R)
+
+
+#UTILITY
+
+
+Knollspine Dragon
+
+
+// COMMANDER: Toshiro umezawa
+
+# kill:
+Slaughter Pact
+Dark Betrayal
+Fatal Blow
+// Ghastly Demise
+Human Frailty
+Darkblast // dredge
+// Tragic Slip
+Ulcerate
+Vendetta
+Bile Blight
+// Devour Flesh
+Devour in Shadow
+Diabolic Edict
+Geth's Verdict
+Go for the Throat
+Grasp of Darkness
+Last Gasp
+// Malicious Affliction
+Scent of Nightshade
+Sickening Shoal
+
+Smother
+Toxic Stench 
+Ultimate Price 
+Urge to Feed
+Victim of Night
+// Dismember
+// Hero's Downfall
+Hideous End
+// Murder
+Dark Banishing
+// Reckless Spite
+Rend Flesh
+Sudden Death
+// Sudden Spoiling
+Tribute to Hunger 
+Hideous Laughter
+Silence the Believers
+Snuff Out
+
+# card draw
+Aphotic Wisps
+
+# utility/other
+// Darkness
+Undying Evil
+// Imp's Mischief
+
+// Oathkeeper, Takeno's Daisho
+
+
+# end toshiro umezawa
+
+
+// Cabal Coffers 
+Cyclopean Tomb
+// Lashwrithe
+Magus of the Coffers
+// Nightmare Lash
+Black Market
+Blood Artist
+// Deathgreeter
+Falkenrath Noble
+Eternal Thirst
+Grave Betrayal
+// Mutilate
+// Harvester of Souls
+// Lim-Dûl the Necromancer
+Massacre Wurm
+Ob Nixilis, Unshackled
+// Ogre Slumlord
+// Overseer of the Damned
+Sadistic Glee
+Sangromancer
+Scavenger Drake
+Soul Collector
+Swarm of Bloodflies
+
+# tutoren
+Cruel Tutor
+Demonic Tutor
+Diabolic Intent
+// Diabolic Revelation
+Infernal Tutor
+Night Dealings
+Rune-Scarred Demon
+Vampiric Tutor
+
+// Imperial Seal // preis .. wtf :D:D
+// Grim Tutor // preis... wtf xD
+
+# ein paar tolle equipments:
+Blade of the Bloodchief
+// Strata Scythe
+// Argentum Armor
+Armory of Iroas
+Banshee's Blade
+Blade of the Bloodchief
+// Explorer's Scope
+// Grafted Wargear
+// Grappling Hook
+Illusionist's Bracers
+// Infiltration Lens
+// Kusari-Gama
+// Mask of Memory
+// Moonsilver Spear
+Quietus Spike
+Rogue's Gloves
+// Scythe of the Wretched
+Spellbinder
+Sword of Kaldra
+Trepanation Blade
+Umezawa's Jitte
+// Worldslayer
+Darksteel Plate
+// Champion's Helm
+Glaring Spotlight
+// Swiftfoot Boots
+
+Sword of Body and Mind
+Sword of Feast and Famine
+Sword of Fire and Ice
+// Sword of Light and Shadow
+// Sword of War and Peace
+
+
+# weiteres zeug
+// Beseech the Queen
+King Macar, the Gold-Cursed
+Empress Galina // legends uebernehmen
+// Tsabo Tavoc // legends zerstoeren
+Ertai, Wizard Adept // counter spell fuer tappen und 4
+Lin Sivvi, Defiant Hero
+// Llawan, Cephalid Empress // gegner keine blauen kreaturen mehr sprechen
+Marchesa, the Black Rose 
+// Michiko Konda, Truth Seeker
+Ob Nixilis, Unshackled
+Rayne, Academy Chancellor // karten ziehen.
+Sosuke, Son of Seshiro // alle warrior "death touch", alle snakes +1/+0
+Sygg, River Cutthroat
+// Visara the Dreadful
+
+Land Tax
+Minds Eye
+Sphinx\'s Revelation
+	// 'Weathered Wayfarer
+Ranger of Eos
+Tithe
+// Sakura-Tribe Elder
+// Wayfarer\'s Bauble
+Yavimaya Elder
+// Armillary Sphere
+Paradox Haze
+Heap Doll
+// Jawbone Skulkin
+Lurebound Scarecrow', // EVTL
+Painter\'s Servant
+Pili-Pala', // EVTL
+Scarecrone
+// Solemn Simulacrum
+Pyroblast
+	// 'Scuttlemutt
+	// 'Straw Soldiers', // evtl
+Wingrattle Scarecrow
+// Taurean Mauler
+Cairn Wanderer
+Chameleon Colossus
+Changeling Berserker
+	// 'Mirror Entity
+Moonglove Changeling
+Shapesharer
+
+	// 'Zur\'s Weirding
+Sphinx\'s Revelation
+	// 'Grid Monitor', // gegner keine kreaturensprueche mehr
+	// 'Jinxed Ring
+Puca\'s Mischief
+Donate
+	// 'Risky Move', // dafuq xD
+	// 'Devoted Caretaker', // :)
+Dominus of Fealty', //
+Angel of Jubilation
+Balefire Liege
+Boon Reflection
+	// 'Daxos of Meletis
+Drogskol Reaver
+Magistrate\'s Scepter
+	// 'Test of Endurance
+Norn\'s Annex
+	// 'Purity
+Renounce
+// Reverse Damage
+// Rhox Faithmender
+// Serra Ascendant
+Soldier of the Pantheon
+
+Soul Warden
+Long-Term Plans
+Mystical Tutor
+	// 'Psionic Blast
+Red Elemental Blast
+	// 'Pendrell Mists
+	// 'Powder Keg
+	// 'Second Chance
+Thrummingbird
+Cauldron of Souls
+	// 'Darksteel Reactor
+	// 'Time Bomb
+Zedruu the Greathearted', // hab ich ... mal schauen
+Journey to Nowhere
+	// 'Howling Mine', // hab ich
+Detention Sphere', // hab ich
+Thran Turbine
+// Scoria Wurm
+Parallax Wave
+	// 'Imaginary Pet
+	// 'Shinka Gatekeeper
+	// 'Petradon
+Mana Crypt', // auauau
+	// 'Kookus', // hm.
+	// 'Emberwilde Djinn', // hm...
+Herald of Serra
+Eight-and-a-Half-Tails', //
+	// 'Bottled Cloister', // evtl ok ?
+	// 'Squee, Goblin Nabob
+
+
+
+# zu teuer...
+#Twilight Mire',   // 20 euro
+#Sword of Fire and Ice', // 17 euro
+#Tawnos\'s Coffin', // 15 euro
+#Archangel of Thune', // 15 euro
+#Cascade Bluffs', //10
+#Rugged Prairie', //9
+#Flooded Grove', // 10
+#Sunken Ruins', // 10
+#Mystic Gate', // 10
+#Temple Garden
+#Wooded Bastion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Academy Ruins
+	// 'Adarkar Wastes
+	// 'Arcane Sanctum
+Battlefield Forge
+Blackcleave Cliffs
+Blood Crypt
+Boseiju, Who Shelters All
+Breeding Pool
+Brushland
+Calciform Pools
+	// 'Caves of Koilos
+City of Brass
+Clifftop Retreat
+	// 'Command Tower
+Copperline Gorge
+	// 'Crumbling Necropolis
+	// 'Crystal Quarry
+	// 'Darkslick Shores
+Dragonskull Summit
+Dreadship Reef
+	/// 'Drowned Catacomb
+Dust Bowl
+Eiganjo Castle
+Emeria, the Sky Ruin
+Mentor of the Meek
+Skullclamp
+Wall of Omens
+knight of the white orchid
+Kor cartographer
+Encroaching Wastes
+Exotic Orchard
+Fire-Lit Thicket
+Flagstones of Trokair
+Fungal Reaches
+Glacial Fortress
+Gavony Township
+Gilt-Leaf Palace
+Glimmervoid
+	// 'Sol Ring
+Chromatic Sphere
+Chromatic Star
+Liar\'s Pendulum
+	// 'Candles of Leng
+Godless Shrine
+	// 'Grand Coliseum
+Graven Cairns
+Graypelt Refuge
+Hallowed Fountain
+Hinterland Harbor
+	// 'Isolated Chapel
+	// 'Jungle Shrine
+	// 'Jwar Isle Refuge
+	// 'Karplusan Forest
+Kessig Wolf Run
+	// 'Kher Keep
+Kjeldoran Outpost
+Llanowar Wastes
+Minamo, School at Water\'s Edge
+Mirrodin\'s Core
+	// 'Molten Slagheap
+Murmuring Bosk
+	// 'Nimbus Maze
+Novijen, Heart of Progress
+	// 'Okina, Temple to the Grandfathers
+Overgrown Tomb
+Pendelhaven
+Pillar of the Paruns
+Primal Beyond
+Razorverge Thicket
+Riptide Laboratory
+River of Tears
+Rootbound Crag
+Sacred Foundry
+	// 'Saltcrusted Steppe
+	// 'Savage Lands
+	// 'Seachrome Coast
+Seaside Citadel
+Seaside Haven
+Secluded Glen
+	// 'Shivan Reef
+	/// 'Shizo, Death\'s Storehouse
+Skarrg, the Rage Pits
+Steam Vents
+Stomping Ground
+Strip Mine
+Sulfur Falls
+	// 'Sulfurous Springs
+Sunpetal Grove
+Swarmyard
+Tainted Field
+	// 'Tainted Isle
+Tainted Peak
+Tainted Wood
+	// 'Tarnished Citadel
+Tectonic Edge
+	// 'Temple of Abandon
+Temple of Deceit
+Temple of Enlightenment
+Temple of Epiphany
+Temple of Malady
+Temple of Malice
+Temple of Mystery
+Temple of Plenty
+Temple of Silence
+Temple of the False God
+Temple of Triumph
+	// 'Tendo Ice Bridge
+Terminal Moraine
+	// 'Thawing Glaciers
+Thran Quarry
+	// 'Tomb of Urami
+Tower of the Magistrate
+	// 'Underground River
+Undiscovered Paradise
+Urza\'s Factory
+Wanderwine Hub
+Watery Grave
+Winding Canyons
+Woodland Cemetery
+Yavimaya Coast
+

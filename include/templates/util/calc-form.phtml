@@ -1,0 +1,76 @@
+
+<form action="<?php echo $this->vars->action_url; ?>" method="post" class="calc-form">
+
+	<div class="seller-countries">
+		<div class="headline">Artikelstandort:</div>
+		<?php
+		foreach ( $this->vars->countrynames as $country => $countryname ) {
+
+			$checked = '';
+			if ( !empty($this->vars->countrynames_val) && in_array($country, $this->vars->countrynames_val) ) {
+				$checked = 'checked="checked"';
+			}
+			?>
+			<label>
+				<input type="checkbox" name="seller-countries[<?php echo $country; ?>]" <?php echo $checked; ?> />
+				<span class="flag flag-<?php echo $country; ?>" title="<?php echo $countryname; ?>"></span>
+				<?php echo $countryname; ?>
+			</label>
+			<?php
+		}
+		?>
+	</div>
+
+	<div class="card-languages">
+		<div class="headline">Sprache der Karten:</div>
+		<?php
+		foreach ( $this->vars->card_languages as $key => $card_language ) {
+
+			$checked = '';
+			if ( !empty($this->vars->card_languages_val) && in_array($key, $this->vars->card_languages_val) ) {
+				$checked = 'checked="checked"';
+			}
+			?>
+			<label>
+				<input type="checkbox" name="card-languages[<?php echo $key; ?>]" <?php echo $checked; ?> />
+				<?php echo $card_language; ?>
+			</label>
+			<?php
+		}
+		?>
+	</div>
+	
+	<div class="more-settings">
+		<div class="headline">
+			Minimal-Zustand:
+			
+			<?php
+			$conditions = array(
+				'MT' => 'Mint',
+				'NM' => 'Near Mint',
+				'EX' => 'Excellent',
+				'GD' => 'Good',
+				'LP' => 'Light Played',
+				'PL' => 'Played',
+				'PO' => 'Poor',
+			);
+			?>
+			<select name="minimal-condition">
+			<?php
+			$minimal_condition = !empty($this->vars->minimal_condition_val) ? $this->vars->minimal_condition_val : 'PO';
+			foreach ( $conditions as $key => $condition ) {
+				?>
+				<option value="<?php echo $key; ?>" <?php echo $key === $minimal_condition ? 'selected="selected"' : ''; ?>><?php echo $condition; ?></option>
+				<?php
+			}
+			?>
+			</select>
+		</div>
+		<div class="headline">Altered-Art zulassen:
+			<input type="checkbox" name="altered-art-ok"
+				<?php echo (!empty($this->vars->altered_art_ok_val) ? 'checked="checked"' : ''); ?> />
+		</div>
+	</div>
+
+	<input type="submit" value="Berechnen!" />
+</form>
