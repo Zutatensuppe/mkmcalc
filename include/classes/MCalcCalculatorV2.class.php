@@ -54,6 +54,7 @@ class MCalcCalculatorV2 {
 		}
 		if ( !empty($args['minus']) ) {
 			$cardcount--;
+
 			foreach ( $args['minus']->sellers as $i => $__seller ) {
 				if ( $__seller->seller_id === $seller->seller_id ) {
 					$cost_total -= $args['minus']->sellers[$i]->cost;
@@ -396,7 +397,6 @@ class MCalcCalculatorV2 {
 
 
 
-
 			// 2. try to make some changes with sellers that have only $x card
 			$x = 1;
 			$retries = 0;
@@ -409,7 +409,6 @@ class MCalcCalculatorV2 {
 				$_sellers = array();
 
 				foreach ( $_cards as $i => $_card ) {
-					
 					if ( $_seller_cardcounts[$_card->sellers[$_card->chosen_seller]->seller_id] === $x ) {
 
 
@@ -420,15 +419,21 @@ class MCalcCalculatorV2 {
 
 							$change = $_card->sellers[$j]->cost - $_card->sellers[$_card->chosen_seller]->cost;
 
+							$s1 = isset($_sellers[$_card->sellers[$_card->chosen_seller]->seller_id])
+								? $_sellers[$_card->sellers[$_card->chosen_seller]->seller_id]
+								: $_card->sellers[$_card->chosen_seller];
+							$s2 = isset($_sellers[$_card->sellers[$j]->seller_id])
+								? $_sellers[$_card->sellers[$j]->seller_id]
+								: $_card->sellers[$j];
 							// vorherige versandkosten bei den beiden verkaeufern berechnen:
 							$shipping_cost_before = 
-								$this->getPseudoShippingCost($_card->sellers[$_card->chosen_seller], array(), true) +
-								$this->getPseudoShippingCost($_card->sellers[$j], array(), true);
+								$this->getPseudoShippingCost($s1, array(), true) +
+								$this->getPseudoShippingCost($s2, array(), true);
 
 							// neue versandkosten berechnen:
 							$shipping_cost_after =
-								$this->getPseudoShippingCost($_card->sellers[$_card->chosen_seller], array('minus' => $_card), true) +
-								$this->getPseudoShippingCost($_card->sellers[$j], array('plus' => $_card), true);
+								$this->getPseudoShippingCost($s1, array('minus' => $_card), true) +
+								$this->getPseudoShippingCost($s2, array('plus' => $_card), true);
 
 							$change += ($shipping_cost_after - $shipping_cost_before);
 
@@ -448,7 +453,6 @@ class MCalcCalculatorV2 {
 					}
 					$_cost+=$_card->sellers[$_card->chosen_seller]->cost;
 
-
 					if ( empty($_sellers[$_card->sellers[$_card->chosen_seller]->seller_id]) ) {
 						$_sellers[$_card->sellers[$_card->chosen_seller]->seller_id] = $_card->sellers[$_card->chosen_seller];
 						$_sellers[$_card->sellers[$_card->chosen_seller]->seller_id]->cards = array();
@@ -462,14 +466,11 @@ class MCalcCalculatorV2 {
 
 
 
-
-
-
 				$_cost = 0;
 				//$_cards = unserialize(serialize($best_solution));
 				//$_seller_cardcounts = unserialize(serialize($best_seller_cardcounts));
 				$_seller_costs = array();
-				$_sellers = array();
+				//$_sellers = array();
 				foreach ( $_cards as $i => $_card ) {
 
 					$_bestchange = false;
@@ -479,16 +480,22 @@ class MCalcCalculatorV2 {
 
 						$change = $_card->sellers[$j]->cost - $_card->sellers[$_card->chosen_seller]->cost;
 
+						$s1 = isset($_sellers[$_card->sellers[$_card->chosen_seller]->seller_id])
+							? $_sellers[$_card->sellers[$_card->chosen_seller]->seller_id]
+							: $_card->sellers[$_card->chosen_seller];
+						$s2 = isset($_sellers[$_card->sellers[$j]->seller_id])
+							? $_sellers[$_card->sellers[$j]->seller_id]
+							: $_card->sellers[$j];
 
 						// vorherige versandkosten bei den beiden verkaeufern berechnen:
 						$shipping_cost_before = 
-							$this->getPseudoShippingCost($_card->sellers[$_card->chosen_seller], array(), true) +
-							$this->getPseudoShippingCost($_card->sellers[$j], array(), true);
+							$this->getPseudoShippingCost($s1, array(), true) +
+							$this->getPseudoShippingCost($s2, array(), true);
 
 						// neue versandkosten berechnen:
 						$shipping_cost_after =
-							$this->getPseudoShippingCost($_card->sellers[$_card->chosen_seller], array('minus' => $_card), true) +
-							$this->getPseudoShippingCost($_card->sellers[$j], array('plus' => $_card), true);
+							$this->getPseudoShippingCost($s1, array('minus' => $_card), true) +
+							$this->getPseudoShippingCost($s2, array('plus' => $_card), true);
 
 						$change += ($shipping_cost_after - $shipping_cost_before);
 
