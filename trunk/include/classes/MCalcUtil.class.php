@@ -63,7 +63,7 @@ class MCalcUtil {
 
 		if ( !$mysqli ) {
 			//conection:
-			$mysqli = mysqli_connect("localhost","root","","mcalc") or die("Error " . mysqli_error($mysqli));
+			$mysqli = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME) or die("Error " . mysqli_error($mysqli));
 			self::dbquery('SET NAMES utf8;');
 		}
 		return $mysqli;
