@@ -9,6 +9,10 @@ class ListsController extends Controller {
 
 		$idList = $this->dispatcher->getVar(1);
 		$user = Auth::user();
+		if ( empty($user) ) {
+			$this->dispatcher->redirect(Config::get('siteurl'));
+		}
+		
 		$chosenList = null;
 
 
@@ -314,6 +318,9 @@ class ListsController extends Controller {
 	public function indexAction() {
 
 		$user = Auth::user();
+		if ( empty($user) ) {
+			$this->dispatcher->redirect(Config::get('siteurl'));
+		}
 
 		$idList = $this->dispatcher->getVar(1);
 
