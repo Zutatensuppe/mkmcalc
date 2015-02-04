@@ -1,8 +1,5 @@
 <?php
 
-
-require_once __DIR__.'/util/ganon.php';
-require_once __DIR__.'/util/phpQuery.php';
 require_once __DIR__.'/util/functions.php';
 
 
