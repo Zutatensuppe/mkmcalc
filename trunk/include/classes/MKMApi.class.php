@@ -137,6 +137,7 @@ class MKMApi {
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
 		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 3);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 10);
 		curl_setopt($ch, CURLOPT_HEADER, 1);
 
 
@@ -182,6 +183,7 @@ class MKMApi {
 
 		} else {
 			$response->error = curl_error($ch);
+			$response->url = $url;
 		}
 
 		curl_close($ch);
@@ -208,7 +210,7 @@ class MKMApi {
 
 		$requestResponse = $this->request('games');
 		if ( !empty($requestResponse->data->error) || ($requestResponse->http_code<200 || $requestResponse->http_code>=300) ) {
-			throw new Exception('HTTPCODE: '.$requestResponse->http_code .', ERROR: '.$requestResponse->data->error);
+			throw new Exception('HTTPCODE: '.$requestResponse->http_code .', ERROR: '.$requestResponse->data->error.', URL: '.$requestResponse->url);
 		}
 		if ( !empty($requestResponse->data->game) ) {
 			foreach ( $requestResponse->data->game as $game ) {
@@ -226,7 +228,7 @@ class MKMApi {
 
 		$requestResponse = $this->request('metaproduct/'.$idMetaproduct);
 		if ( !empty($requestResponse->data->error) || ($requestResponse->http_code<200 || $requestResponse->http_code>=300) ) {
-			throw new Exception('HTTPCODE: '.$requestResponse->http_code .', ERROR: '.$requestResponse->data->error);
+			throw new Exception('HTTPCODE: '.$requestResponse->http_code .', ERROR: '.$requestResponse->data->error.', URL: '.$requestResponse->url);
 		}
 		if ( !empty($requestResponse->data->metaproduct) ) {
 			$metaproduct = $requestResponse->data->metaproduct;
@@ -250,7 +252,7 @@ class MKMApi {
 
 		$requestResponse = $this->request('metaproducts/'.$searchString.'/'.$idGame.'/'.$idLanguage);
 		if ( !empty($requestResponse->data->error) || ($requestResponse->http_code<200 || $requestResponse->http_code>=300) ) {
-			throw new Exception('HTTPCODE: '.$requestResponse->http_code .', ERROR: '.$requestResponse->data->error);
+			throw new Exception('HTTPCODE: '.$requestResponse->http_code .', ERROR: '.$requestResponse->data->error.', URL: '.$requestResponse->url);
 		}
 		if ( !empty($requestResponse->data->metaproduct) ) {
 			$metaproduct = $requestResponse->data->metaproduct;
@@ -259,30 +261,28 @@ class MKMApi {
 
 	}
 
-
 	public function getProductById( $idProduct ) {
 
 		$product = null;
 
 		$requestResponse = $this->request('product/'.$idProduct);
 		if ( !empty($requestResponse->data->error) || ($requestResponse->http_code<200 || $requestResponse->http_code>=300) ) {
-			throw new Exception('HTTPCODE: '.$requestResponse->http_code .', ERROR: '.$requestResponse->data->error);
+			throw new Exception('HTTPCODE: '.$requestResponse->http_code .', ERROR: '.$requestResponse->data->error.', URL: '.$requestResponse->url);
 		}
 		if ( !empty($requestResponse->data->product) ) {
 			$product = $requestResponse->data->product;
 		}
 		return $product;
+	}
 
-	
-
-}	public function getProductsBySearch( $searchString, $start = 1, $exact = true, $idLanguage = self::ID_LANGUAGE_ENGLISH, $idGame = self::ID_GAME_MTG ) {
+	public function getProductsBySearch( $searchString, $start = 1, $exact = true, $idLanguage = self::ID_LANGUAGE_ENGLISH, $idGame = self::ID_GAME_MTG ) {
 
 		$products = array();
 
 		do {
 			$requestResponse = $this->request('products/'.$searchString.'/'.$idGame.'/'.$idLanguage.'/'.($exact?'true':'false').($start<=0?'':'/'.$start));
 			if ( !empty($requestResponse->data->error) || ($requestResponse->http_code<200 || $requestResponse->http_code>=300) ) {
-				throw new Exception('HTTPCODE: '.$requestResponse->http_code .', ERROR: '.$requestResponse->data->error);
+				throw new Exception('HTTPCODE: '.$requestResponse->http_code .', ERROR: '.$requestResponse->data->error.', URL: '.$requestResponse->url);
 			}
 			$chk = (array)$requestResponse->data->product;
 			if ( !empty($chk) ) {
@@ -336,7 +336,7 @@ class MKMApi {
 
 		$requestResponse = $this->request('user/'.$idUser);
 		if ( !empty($requestResponse->data->error) || ($requestResponse->http_code<200 || $requestResponse->http_code>=300) ) {
-			throw new Exception('HTTPCODE: '.$requestResponse->http_code .', ERROR: '.$requestResponse->data->error);
+			throw new Exception('HTTPCODE: '.$requestResponse->http_code .', ERROR: '.$requestResponse->data->error.', URL: '.$requestResponse->url);
 		}
 		if ( !empty($requestResponse->data->user) ) {
 			$user = $requestResponse->data->user;
@@ -355,7 +355,7 @@ class MKMApi {
 
 			$requestResponse = $this->request('orders/'.$actor.'/'.$status.($start<=0?'':'/'.$start));
 			if ( !empty($requestResponse->data->error) || ($requestResponse->http_code<200 || $requestResponse->http_code>=300) ) {
-				throw new Exception('HTTPCODE: '.$requestResponse->http_code .', ERROR: '.$requestResponse->data->error);
+				throw new Exception('HTTPCODE: '.$requestResponse->http_code .', ERROR: '.$requestResponse->data->error.', URL: '.$requestResponse->url);
 			}
 			if ( !empty($requestResponse->data->order) ) {
 				foreach ( $requestResponse->data->order as $order ) {
@@ -377,7 +377,7 @@ class MKMApi {
 
 		$requestResponse = $this->request('order/'.$idOrder);
 		if ( !empty($requestResponse->data->error) || ($requestResponse->http_code<200 || $requestResponse->http_code>=300) ) {
-			throw new Exception('HTTPCODE: '.$requestResponse->http_code .', ERROR: '.$requestResponse->data->error);
+			throw new Exception('HTTPCODE: '.$requestResponse->http_code .', ERROR: '.$requestResponse->data->error.', URL: '.$requestResponse->url);
 		}
 		if ( !empty($requestResponse->data->order) ) {
 			$order = $requestResponse->data->order;
@@ -399,7 +399,7 @@ class MKMApi {
 		$shoppingCarts = array();
 		$requestResponse = $this->request('shoppingcart');
 		if ( !empty($requestResponse->data->error) || ($requestResponse->http_code<200 || $requestResponse->http_code>=300) ) {
-			throw new Exception('HTTPCODE: '.$requestResponse->http_code .', ERROR: '.$requestResponse->data->error);
+			throw new Exception('HTTPCODE: '.$requestResponse->http_code .', ERROR: '.$requestResponse->data->error.', URL: '.$requestResponse->url);
 		}
 		if ( !empty($requestResponse->data->shoppingCart) ) {
 			foreach ( $requestResponse->data->shoppingCart as $shoppingCart ) {
@@ -423,7 +423,7 @@ class MKMApi {
 		$orders = array();
 		$requestResponse = $this->request('shoppingcart/checkout');
 		if ( !empty($requestResponse->data->error) || ($requestResponse->http_code<200 || $requestResponse->http_code>=300) ) {
-			throw new Exception('HTTPCODE: '.$requestResponse->http_code .', ERROR: '.$requestResponse->data->error);
+			throw new Exception('HTTPCODE: '.$requestResponse->http_code .', ERROR: '.$requestResponse->data->error.', URL: '.$requestResponse->url);
 		}
 		if ( !empty($requestResponse->data->order) ) {
 			foreach ( $requestResponse->data->order as $order) {
@@ -454,7 +454,7 @@ class MKMApi {
 
 		$requestResponse = $this->request('wantslist');
 		if ( !empty($requestResponse->data->error) || ($requestResponse->http_code<200 || $requestResponse->http_code>=300) ) {
-			throw new Exception('HTTPCODE: '.$requestResponse->http_code .', ERROR: '.$requestResponse->data->error);
+			throw new Exception('HTTPCODE: '.$requestResponse->http_code .', ERROR: '.$requestResponse->data->error.', URL: '.$requestResponse->url);
 		}
 		if ( !empty($requestResponse->data->wantsList) ) {
 			foreach ( $requestResponse->data->wantsList as $wantsList ) {
@@ -472,7 +472,7 @@ class MKMApi {
 
 		$requestResponse = $this->request('wantslist/'.$idWantsList);
 		if ( !empty($requestResponse->data->error) || ($requestResponse->http_code<200 || $requestResponse->http_code>=300) ) {
-			throw new Exception('HTTPCODE: '.$requestResponse->http_code .', ERROR: '.$requestResponse->data->error);
+			throw new Exception('HTTPCODE: '.$requestResponse->http_code .', ERROR: '.$requestResponse->data->error.', URL: '.$requestResponse->url);
 		}
 		if ( !empty($requestResponse->data->want) ) {
 			foreach ( $requestResponse->data->want as $want ) {
@@ -498,7 +498,7 @@ class MKMApi {
 			'</request>';
 		$requestResponse = $this->request('wantslist', $data, 'POST');
 		if ( !empty($requestResponse->data->error) || ($requestResponse->http_code<200 || $requestResponse->http_code>=300) ) {
-			throw new Exception('HTTPCODE: '.$requestResponse->http_code .', ERROR: '.$requestResponse->data->error);
+			throw new Exception('HTTPCODE: '.$requestResponse->http_code .', ERROR: '.$requestResponse->data->error.', URL: '.$requestResponse->url);
 		}
 		if ( !empty($requestResponse->data->wantsList) ) {
 			foreach ( $requestResponse->data->wantsList as $wantsList ) {
@@ -516,7 +516,7 @@ class MKMApi {
 
 		$requestResponse = $this->request('wantslist/'.$idWantsList, false, 'DELETE');
 		if ( !empty($requestResponse->data->error) || ($requestResponse->http_code<200 || $requestResponse->http_code>=300) ) {
-			throw new Exception('HTTPCODE: '.$requestResponse->http_code .', ERROR: '.$requestResponse->data->error);
+			throw new Exception('HTTPCODE: '.$requestResponse->http_code .', ERROR: '.$requestResponse->data->error.', URL: '.$requestResponse->url);
 		}
 
 		if ( $requestResponse->http_code === 200 ) {
@@ -560,7 +560,7 @@ class MKMApi {
 
 			$requestResponse = $this->request('stock'.($start<=0?'':'/'.$start));
 			if ( !empty($requestResponse->data->error) || ($requestResponse->http_code<200 || $requestResponse->http_code>=300) ) {
-				throw new Exception('HTTPCODE: '.$requestResponse->http_code .', ERROR: '.$requestResponse->data->error);
+				throw new Exception('HTTPCODE: '.$requestResponse->http_code .', ERROR: '.$requestResponse->data->error.', URL: '.$requestResponse->url);
 			}
 			if ( !empty($requestResponse->data->article) ) {
 				foreach ( $requestResponse->data->article as $article ) {
@@ -582,7 +582,7 @@ class MKMApi {
 
 		$requestResponse = $this->request('stock/article/'.$idArticle);
 		if ( !empty($requestResponse->data->error) || ($requestResponse->http_code<200 || $requestResponse->http_code>=300) ) {
-			throw new Exception('HTTPCODE: '.$requestResponse->http_code .', ERROR: '.$requestResponse->data->error);
+			throw new Exception('HTTPCODE: '.$requestResponse->http_code .', ERROR: '.$requestResponse->data->error.', URL: '.$requestResponse->url);
 		}
 		if ( !empty($requestResponse->data->article) ) {
 			$article = $requestResponse->data->article;
