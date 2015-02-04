@@ -48,6 +48,12 @@ class Dispatcher {
 
 	}
 
+	public function redirect($url) {
+		header('HTTP/1.1 301 Moved Permanently');
+		header('Location: '.$url);
+		exit();
+	}
+
 	public function getUrl() {
 		return $this->url;
 	}
