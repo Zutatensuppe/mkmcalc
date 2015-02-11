@@ -1,7 +1,9 @@
 <?php
+namespace system\abstr;
 
+use system\Dispatcher as Dispatcher;
 
-class Controller {
+abstract class Controller {
 
 	protected $dispatcher = null;
 

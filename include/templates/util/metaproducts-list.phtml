@@ -63,7 +63,7 @@ $priceTotal = 0;
 					<?php echo str_pad(number_format($price, 2), 0).' EUR'; ?>
 				</td>
 				<td>
-					<a href="<?php echo $this->vars->url; ?>&action=removeCards&metaproductIds=<?php echo $list_metaproduct->idMetaproduct; ?>">entfernen</a>
+					<a href="<?php echo $this->vars->url; ?>?action=removeCards&metaproductIds=<?php echo $list_metaproduct->idMetaproduct; ?>">entfernen</a>
 				</td>
 			</tr>
 			<?php
@@ -77,7 +77,7 @@ $priceTotal = 0;
 			<td></td>
 			<td>
 				&sum; <?php echo str_pad(number_format($priceTotal, 2), 0).' EUR'; ?><br />
-				+ ca. <?php echo count($this->vars->metaproducts)*2.0; ?> EUR Versand (Bei Einzelkauf)
+				+ ca. <?php echo count($this->vars->metaproducts)*0.92; ?> EUR Versand (Bei Einzelkauf)
 			</td>
 			<td></td>
 		</tr>

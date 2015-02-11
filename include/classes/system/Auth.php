@@ -1,7 +1,5 @@
 <?php
-
-
-
+namespace system;
 
 class Auth {
 
@@ -39,12 +37,12 @@ class Auth {
 			FROM
 				`user_User`
 			WHERE
-				`loginId` = "'.MCalcUtil::dbescape($loginId).'"
+				`loginId` = "'.Database::instance()->escape($loginId).'"
 				AND
-				`password` = PASSWORD("'.MCalcUtil::dbescape($password).'")
+				`password` = PASSWORD("'.Database::instance()->escape($password).'")
 			;
 		';
-		$row = MCalcUtil::dbgetrow($sql);
+		$row = Database::instance()->getRow($sql);
 		if ( !empty($row) ) {
 			self::$user = new User;
 			self::$user->setId($row->idUser);
@@ -63,12 +61,12 @@ class Auth {
 			FROM
 				`user_User`
 			WHERE
-				`loginId` = "'.MCalcUtil::dbescape($user->getLoginId()).'"
+				`loginId` = "'.Database::instance()->escape($user->getLoginId()).'"
 				AND
-				`password` = "'.MCalcUtil::dbescape($user->getPassword()).'"
+				`password` = "'.Database::instance()->escape($user->getPassword()).'"
 			;
 		';
-		$row = MCalcUtil::dbgetrow($sql);
+		$row = Database::instance()->getRow($sql);
 		if ( !empty($row) ) {
 			self::$user = new User;
 			self::$user->setId($row->idUser);

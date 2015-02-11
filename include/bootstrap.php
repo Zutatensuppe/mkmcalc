@@ -10,25 +10,34 @@ require_once INCLUDE_DIR.'/classes/autoload.php';
 require_once __DIR__.'/config.php';
 
 
+use system\Config as Config;
+use system\Database as Database;
 
 Config::set('siteurl', SITEURL);
 
 $routes = array(
 	array(
 		'pattern' => '%^'.preg_quote(Config::get('siteurl'), '%').'/lists/(\d+)/calculate/%',
-		'controller' => 'ListsController',
+		'controller' => 'app\front\lists\Controller',
 		'action' => 'calcAction',
 	),
 	array(
 		'pattern' => '%^'.preg_quote(Config::get('siteurl'), '%').'/lists/(\d+)/%',
-		'controller' => 'ListsController',
+		'controller' => 'app\front\lists\Controller',
 		'action' => 'indexAction',
 	),
 
 	array(
 		'pattern' => '%^.*$%',
-		'controller' => 'IndexController',
+		'controller' => 'app\front\index\Controller',
 	),
 );
 
 Config::set('routes', $routes);
+
+Database::instance('__default__', array(
+	'host' => DB_HOST,
+	'user' => DB_USER,
+	'pass' => DB_PASS,
+	'name' => DB_NAME,
+));

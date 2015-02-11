@@ -1,4 +1,12 @@
 <?php
+use system\Database as Database;
+
+use app\back\util\MKMApi as MKMApi;
+use app\back\util\MCalcUtil as MCalcUtil;
+
+use app\back\mkm\mkm_Article as mkm_Article;
+use app\back\mkm\mkm_Product as mkm_Product;
+use app\back\mkm\mkm_Metaproduct as mkm_Metaproduct;
 
 function from_camel_case($input) {
 	preg_match_all('!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!', $input, $matches);
@@ -31,6 +39,7 @@ function mcalc_debug( $str, $debug_level = 1 ) {
 }
 
 function clear_database() {
+
 	$sqls = array(
 		'truncate mkm_Article;',
 		'truncate mkm_ArticleComment;',
@@ -44,7 +53,7 @@ function clear_database() {
 		// 'truncate mkm_ProductName;',
 	);
 	foreach ( $sqls as $sql ) {
-		MCalcUtil::dbquery($sql);
+		Database::instance()->query($sql);
 	}
 }
 
@@ -68,10 +77,10 @@ function find_and_save_cards( $cards ) {
 			FROM
 				`mkm_MetaproductName`
 			WHERE
-				`metaproductName` = "'.MCalcUtil::dbescape($card).'"
+				`metaproductName` = "'.Database::instance()->escape($card).'"
 			;
 		';
-		$rows = MCalcUtil::dbrows($sql);
+		$rows = Database::instance()->getRows($sql);
 		$metaproductIds = array();
 		foreach ( $rows as $row ) {
 			$metaproductIds[$row->idMetaproduct] = true;
@@ -96,7 +105,7 @@ function find_and_save_cards( $cards ) {
 						`lastUpdate` > DATE_SUB(NOW(), INTERVAL 2 WEEK)
 					;
 				';
-				$row = MCalcUtil::dbgetrow($sql);
+				$row = Database::instance()->getRow($sql);
 				if ( (int)$row->Count === 0 ) {
 					// keine aktuellen daten vorhanden! :(
 					$need_update[$idMetaproduct] = true;
@@ -163,7 +172,7 @@ function find_and_save_cards( $cards ) {
 
 				// search card in database
 				$sql = 'SELECT `idProduct` FROM `mkm_Product` WHERE `idProduct` = '.(int)$idProduct.';';
-				$row = MCalcUtil::dbgetrow($sql);
+				$row = Database::instance()->getRow($sql);
 				if ( empty($row->idProduct) ) {
 
 					$res2 = $api->getProductById($idProduct);
@@ -202,7 +211,7 @@ function find_and_save_cards( $cards ) {
 					`lastUpdate` = NOW()
 				;
 			';
-			MCalcUtil::dbquery($sql);
+			Database::instance()->query($sql);
 
 		}
 
@@ -237,17 +246,17 @@ function find_and_save_articles( $product_ids ) {
 				`lastUpdate` > DATE_SUB(NOW(), INTERVAL 2 DAY)
 			;
 		';
-		$row = MCalcUtil::dbgetrow($sql);
+		$row = Database::instance()->getRow($sql);
 		if ( (int)$row->Count === 0 ) {
 			// keine aktuellen daten vorhanden! :(
 			$res_articles = false;
 			// daten noch aus der db entfernen
 			$sql = 'DELETE FROM `mkm_Article` WHERE `idProduct` = '.(int)$idProduct.';';
-			MCalcUtil::dbquery($sql);
+			Database::instance()->query($sql);
 		} else {
 			// try to get via db:
 			$sql = 'SELECT * FROM `mkm_Article` WHERE `idProduct` = '.(int)$idProduct.';';
-			$res_articles = MCalcUtil::dbrows($sql);
+			$res_articles = Database::instance()->getRows($sql);
 		}
 
 
@@ -308,7 +317,7 @@ function find_and_save_articles( $product_ids ) {
 					`lastUpdate` = NOW()
 				;
 			';
-			MCalcUtil::dbquery($sql);
+			Database::instance()->query($sql);
 
 		}
 

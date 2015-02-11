@@ -1,6 +1,7 @@
 <?php
+namespace app\back\util;
 
-
+use system\Database as Database;
 
 class MCalcCalculatorV2 {
 
@@ -126,7 +127,7 @@ class MCalcCalculatorV2 {
 
 
 
-		$sol = new stdClass;
+		$sol = new \stdClass;
 		$sol->sellers = $__sellers;
 		$sol->total_cost = $cost;
 		return $sol;
@@ -145,7 +146,7 @@ class MCalcCalculatorV2 {
 			}
 		}
 
-		$seller_rows = MCalcUtil::dbrows('
+		$seller_rows = Database::instance()->getRows('
 			SELECT
 				`mkm_User`.`idUser` as `seller_id`,
 				`mkm_User`.`username` as `name`,
@@ -196,7 +197,7 @@ class MCalcCalculatorV2 {
 				if ( !isset($sellers[$seller->seller_id]) ) {
 					// initial hat der verkaeufer keine karten und somit keine kosten
 					// ausserdem ist kein anderer verkaeufer billiger
-					$sellers[$seller->seller_id] = new stdClass;
+					$sellers[$seller->seller_id] = new \stdClass;
 					$sellers[$seller->seller_id]->seller_id = $seller->seller_id;
 					$sellers[$seller->seller_id]->cheapers = array();
 					$sellers[$seller->seller_id]->cardcount = 0;
@@ -296,7 +297,7 @@ class MCalcCalculatorV2 {
 			$__sellers = array();
 
 			// 1. find initial by sellers with most cards
-			foreach ( $__cards as $__card ) {
+			foreach ( $__cards as &$__card ) {
 				
 				$__card->chosen_seller = 0;
 				for ( $i = 0; $i < count($__card->sellers); $i++ ) {
@@ -305,70 +306,26 @@ class MCalcCalculatorV2 {
 						$__seller_cardcounts[$__card->sellers[$i]->seller_id] = 0;
 					}
 
-					if ( false ) {
+					$cc1 = $sellers[$__card->sellers[$i]->seller_id]->cardcount;
+					$cc2 = $sellers[$__card->sellers[$__card->chosen_seller]->seller_id]->cardcount;
+					$tc1 = $sellers[$__card->sellers[$i]->seller_id]->totalcost;
+					$tc2 = $sellers[$__card->sellers[$__card->chosen_seller]->seller_id]->totalcost;
 
 
-						$extra_i = 2.0 / $sellers[$__card->sellers[$i]->seller_id]->cardcount * $MP;
-						$extra_chosen = 2.0 / $sellers[$__card->sellers[$__card->chosen_seller]->seller_id]->cardcount * $MP;
+					// TOOD: wieso 2.0 ?
+					$extra_i = $cc1 > 0 ? 2.0 / $cc1 * $MP : 0;
+					$extra_chosen = $cc2 > 0 ? 2.0 / $cc2 * $MP : 0;
+
+					
+					// der verkaeufer muss mind. ein fuenftel der karten des aktuell gewaehlten verkaeufers haben
+					// danach muss er den multiplier check bestehen
+					// TOOD: das sieht mir ziemlich random aus... wieso gerade 1/5?
+
+					if ( $cc1 / $cc2 > 0.2 ) {
+
 						if ( $__card->sellers[$i]->cost+$extra_i < $__card->sellers[$__card->chosen_seller]->cost + $extra_chosen ) {
 							$__card->chosen_seller = $i;
 						}
-						
-					} else if ( false ) {
-						$cc1 = $sellers[$__card->sellers[$i]->seller_id]->cardcount;
-						$cc2 = $sellers[$__card->sellers[$__card->chosen_seller]->seller_id]->cardcount;
-						$tc1 = $sellers[$__card->sellers[$i]->seller_id]->totalcost;
-						$tc2 = $sellers[$__card->sellers[$__card->chosen_seller]->seller_id]->totalcost;
-
-
-						if ( $cc1 / $cc2 > 10000 ) {
-							mcalc_debug($__card->sellers[$i]->seller_id.' hat mehr karten als '.$__card->sellers[$__card->chosen_seller]->seller_id.' ('.
-								$cc1 .' > '. $cc2.
-								') ');
-							$__card->chosen_seller = $i;
-						} else if ( $cc1 / $cc2 > 0.3 ) {
-
-							if ( $tc1 < $tc2 ) {
-								mcalc_debug($__card->sellers[$i]->seller_id.' hat gleich viele karten wie '.$__card->sellers[$__card->chosen_seller]->seller_id.' ('.
-									$cc1 .' == '. $cc2.
-									' aber ist billiger... '.
-									$tc1 .' < '. $tc2.
-									') ');
-								$__card->chosen_seller = $i;
-							} else {
-								// mcalc_debug($__card->sellers[$i]->seller_id.' hat gleich viele karten wie '.$__card->sellers[$__card->chosen_seller]->seller_id.' ('.
-								// 	$cc1 .' == '. $cc2.
-								// 	' und ist nicht billiger ... '.
-								// 	$tc1 .' >= '. $tc2.
-								// 	') ');
-							}
-						}
-
-
-					} else {
-
-						$cc1 = $sellers[$__card->sellers[$i]->seller_id]->cardcount;
-						$cc2 = $sellers[$__card->sellers[$__card->chosen_seller]->seller_id]->cardcount;
-						$tc1 = $sellers[$__card->sellers[$i]->seller_id]->totalcost;
-						$tc2 = $sellers[$__card->sellers[$__card->chosen_seller]->seller_id]->totalcost;
-
-
-						// TOOD: wieso 2.0 ?
-						$extra_i = $cc1 > 0 ? 2.0 / $cc1 * $MP : 0;
-						$extra_chosen = $cc2 > 0 ? 2.0 / $cc2 * $MP : 0;
-
-						
-						// der verkaeufer muss mind. ein fuenftel der karten des aktuell gewaehlten verkaeufers haben
-						// danach muss er den multiplier check bestehen
-						// TOOD: das sieht mir ziemlich random aus... wieso gerade 1/5?
-
-						if ( $cc1 / $cc2 > 0.2 ) {
-
-							if ( $__card->sellers[$i]->cost+$extra_i < $__card->sellers[$__card->chosen_seller]->cost + $extra_chosen ) {
-								$__card->chosen_seller = $i;
-							}
-						}
-
 					}
 
 
@@ -408,7 +365,7 @@ class MCalcCalculatorV2 {
 				$_seller_costs = array();
 				$_sellers = array();
 
-				foreach ( $_cards as $i => $_card ) {
+				foreach ( $_cards as $i => &$_card ) {
 					if ( $_seller_cardcounts[$_card->sellers[$_card->chosen_seller]->seller_id] === $x ) {
 
 
@@ -471,7 +428,12 @@ class MCalcCalculatorV2 {
 				//$_seller_cardcounts = unserialize(serialize($best_seller_cardcounts));
 				$_seller_costs = array();
 				//$_sellers = array();
-				foreach ( $_cards as $i => $_card ) {
+				foreach ( $_cards as $i => &$_card ) {
+
+					// echo '<h1>KARTE '.$_card->productName .'</h1>';
+
+					// echo 'Verkaeufer: '.$this->__seller_names[$_card->sellers[$_card->chosen_seller]->seller_id].' (IDX: '.$_card->chosen_seller.')<br />';
+					// echo 'kostenpunkt: '.$_card->sellers[$_card->chosen_seller]->cost.'<br />';
 
 					$_bestchange = false;
 					$_bestchange_index = false;
@@ -479,7 +441,6 @@ class MCalcCalculatorV2 {
 						if ( $j === $_card->chosen_seller ) continue;
 
 						$change = $_card->sellers[$j]->cost - $_card->sellers[$_card->chosen_seller]->cost;
-
 						$s1 = isset($_sellers[$_card->sellers[$_card->chosen_seller]->seller_id])
 							? $_sellers[$_card->sellers[$_card->chosen_seller]->seller_id]
 							: $_card->sellers[$_card->chosen_seller];
@@ -498,8 +459,12 @@ class MCalcCalculatorV2 {
 							$this->getPseudoShippingCost($s2, array('plus' => $_card), true);
 
 						$change += ($shipping_cost_after - $shipping_cost_before);
-
 						if ( $change < 0 ) {
+						// echo '<hr />';
+						// echo 'Vorheriger Verkaeufer:'.$_card->sellers[$_card->chosen_seller]->seller_id.' '.$this->__seller_names[$_card->sellers[$_card->chosen_seller]->seller_id].' ('.$_card->sellers[$_card->chosen_seller]->cost.')<br />';
+						// echo 'Check Verkaeufer:'.$_card->sellers[$j]->seller_id.' '.$this->__seller_names[$_card->sellers[$j]->seller_id].' ('.$_card->sellers[$j]->cost.')<br />';
+						// echo 'Shipping before after: '.$shipping_cost_before . ' / '. $shipping_cost_after .'<br />';
+						
 							if ( $_bestchange === false || $change < $_bestchange ) {
 								$_bestchange = $change;
 								$_bestchange_index = $j;
@@ -512,6 +477,8 @@ class MCalcCalculatorV2 {
 						$_seller_cardcounts[$_card->sellers[$_bestchange_index]->seller_id]++;
 						$_card->chosen_seller = $_bestchange_index;
 					}
+					// echo 'Verkaeufer: '.$this->__seller_names[$_card->sellers[$_card->chosen_seller]->seller_id].' (IDX: '.$_card->chosen_seller.')<br />';
+					// echo 'kostenpunkt: '.$_card->sellers[$_card->chosen_seller]->cost.'<br />';
 					$_cost+=$_card->sellers[$_card->chosen_seller]->cost;
 
 					if ( empty($_sellers[$_card->sellers[$_card->chosen_seller]->seller_id]) ) {
@@ -564,7 +531,7 @@ class MCalcCalculatorV2 {
 		$sol = $this->makeSolution($_really_best_solution);
 
 
-		$result = new stdClass;
+		$result = new \stdClass;
 
 
 		$result->list = $sols;

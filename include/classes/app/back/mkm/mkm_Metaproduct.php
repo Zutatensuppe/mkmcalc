@@ -1,5 +1,8 @@
 <?php
 
+namespace app\back\mkm;
+
+use system\Database as Database;
 
 class mkm_Metaproduct {
 	
@@ -38,7 +41,7 @@ class mkm_Metaproduct {
 				`mn`.`idMetaproduct` = '.(int)$this->_idMetaproduct.'
 			;
 		';
-		$rows = MCalcUtil::dbrows($sql);
+		$rows = Database::instance()->getRows($sql);
 		foreach ( $rows as $row ) {
 			$this->_name[] = array(
 				'idLanguage' => $row->idLanguage,
@@ -70,7 +73,7 @@ class mkm_Metaproduct {
 				`idMetaproduct` = '.(int)$this->_idMetaproduct.'
 			;
 		';
-		MCalcUtil::dbquery($sql);
+		Database::instance()->query($sql);
 
 
 		foreach ( $this->_name as $name ) {
@@ -81,13 +84,13 @@ class mkm_Metaproduct {
 					`mkm_Language`
 				SET
 					`idLanguage` = '.(int)$name['idLanguage'].',
-					`languageName` = "'.MCalcUtil::dbescape($name['languageName']).'"
+					`languageName` = "'.Database::instance()->escape($name['languageName']).'"
 
 				ON DUPLICATE KEY UPDATE
-					`languageName` = "'.MCalcUtil::dbescape($name['languageName']).'"
+					`languageName` = "'.Database::instance()->escape($name['languageName']).'"
 				;
 			';
-			MCalcUtil::dbquery($sql);
+			Database::instance()->query($sql);
 
 
 			// metaproduct name eintragen
@@ -97,13 +100,13 @@ class mkm_Metaproduct {
 				SET
 					`idMetaproduct` = '.(int)$this->_idMetaproduct.',
 					`idLanguage` = '.(int)$name['idLanguage'].',
-					`metaproductName` = "'.MCalcUtil::dbescape($name['metaproductName']).'"
+					`metaproductName` = "'.Database::instance()->escape($name['metaproductName']).'"
 
 				ON DUPLICATE KEY UPDATE
-					`metaproductName` = "'.MCalcUtil::dbescape($name['metaproductName']).'"
+					`metaproductName` = "'.Database::instance()->escape($name['metaproductName']).'"
 				;
 			';
-			MCalcUtil::dbquery($sql);
+			Database::instance()->query($sql);
 
 		}
 
@@ -121,7 +124,7 @@ class mkm_Metaproduct {
 					`idMetaproduct` = '.(int)$this->_idMetaproduct.'
 				;
 			';
-			MCalcUtil::dbquery($sql);
+			Database::instance()->query($sql);
 
 		}
 

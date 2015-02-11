@@ -1,5 +1,5 @@
 <?php
-
+namespace system;
 
 class Session {
 
@@ -13,12 +13,12 @@ class Session {
 				`user_Session`
 			SET
 				`idUser` = '.(int)$idUser.',
-				`idSession` = "'.MCalcUtil::dbescape(self::get('idSession')).'"
+				`idSession` = "'.Database::instance()->escape(self::get('idSession')).'"
 			ON DUPLICATE KEY UPDATE
 				`idUser` = '.(int)$idUser.'
 			;
 		';
-		MCalcUtil::dbquery($sql);
+		Database::instance()->query($sql);
 		
 	}
 	public static function getUserId() {
@@ -30,10 +30,11 @@ class Session {
 				FROM
 					`user_Session`
 				WHERE
-					`idSession` = "'.MCalcUtil::dbescape(self::get('idSession')).'"
+					`idSession` = "'.Database::instance()->escape(self::get('idSession')).'"
 				;
 			';
-			$row = MCalcUtil::dbgetrow($sql);
+
+			$row = Database::instance()->getRow($sql);
 			if ( !empty($row) ) {
 				return (int)$row->idUser;
 			}
