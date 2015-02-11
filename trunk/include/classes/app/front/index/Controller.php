@@ -1,7 +1,15 @@
 <?php
+namespace app\front\index;
 
+use system\abstr\Controller as AbstractController;
+use system\Auth as Auth;
+use system\Session as Session;
+use system\User as User;
+use system\HtmlView as HtmlView;
+use system\Config as Config;
+use system\Database as Database;
 
-class IndexController extends Controller {
+class Controller extends AbstractController {
 
 
 
@@ -41,18 +49,18 @@ class IndexController extends Controller {
 
 		$header_styles = array();
 
-		$page_template = new Template('main');
+		$page_template = new HtmlView('main');
 
 		$page_content = '';
 		if ( !$user ) {
-			$login_template = new Template('util/menu-loggedout');
+			$login_template = new HtmlView('util/menu-loggedout');
 			$login_template->assign('action_url', $this->dispatcher->getUrl());
 
 			$page_content .= $login_template->render();
 
 		} else {
 
-			$menu_template = new Template('util/menu-loggedin');
+			$menu_template = new HtmlView('util/menu-loggedin');
 			$menu_template->assign('action_url', $this->dispatcher->getUrl());
 			$menu_template->assign('username', $user->getName());
 
@@ -78,10 +86,10 @@ class IndexController extends Controller {
 								`user_List`
 								(`idUser`, `name`)
 							VALUES
-								('.(int)$idUser.', "'.MCalcUtil::dbescape($listname).'")
+								('.(int)$idUser.', "'.Database::instance()->escape($listname).'")
 							;
 						';
-						MCalcUtil::dbquery($sql);
+						Database::instance()->query($sql);
 					}
 					break;
 				case 'deleteList':
@@ -90,26 +98,28 @@ class IndexController extends Controller {
 						$sql = '
 							DELETE FROM `user_List` WHERE `idUser` = '.(int)$idUser.' AND `idList` = '.(int)$idList.';
 						';
-						MCalcUtil::dbquery($sql);
+						Database::instance()->query($sql);
 					}
 				default:
 					break;
 			}
 
-			$list_list_template = new Template('util/list-list');
-			$list_list_template->assign('lists', $user->getLists());
-			$list_list_template->assign('headline', 'Deine Listen');
-			$list_list_template->assign('action_url', $this->dispatcher->getUrl());
+			$tmpl = new HtmlView('util/list-list');
+			$tmpl->assign('lists', $user->getLists());
+			$tmpl->assign('headline', 'Deine Listen');
+			$tmpl->assign('siteurl', Config::get('siteurl'));
+			$tmpl->assign('action_url', $this->dispatcher->getUrl());
 
-			$page_content .= $list_list_template->render();
+			$page_content .= $tmpl->render();
 
 
-			$list_create_template = new Template('util/list-create-form');
-			$list_create_template->assign('lists', $user->getLists());
-			$list_create_template->assign('headline', 'Weitere Liste erstellen');
-			$list_create_template->assign('action_url', $this->dispatcher->getUrl());
+			$tmpl = new HtmlView('util/list-create-form');
+			$tmpl->assign('lists', $user->getLists());
+			$tmpl->assign('headline', 'Weitere Liste erstellen');
+			$tmpl->assign('siteurl', Config::get('siteurl'));
+			$tmpl->assign('action_url', $this->dispatcher->getUrl());
 
-			$page_content .= $list_create_template->render();
+			$page_content .= $tmpl->render();
 		}
 
 		$page_template->assign('page_content', $page_content);

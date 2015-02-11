@@ -1,7 +1,18 @@
 <?php
+namespace app\front\lists;
 
+use system\abstr\Controller as AbstractController;
+use system\Auth as Auth;
+use system\Session as Session;
+use system\User as User;
+use system\HtmlView as HtmlView;
+use system\Config as Config;
+use system\Database as Database;
 
-class ListsController extends Controller {
+use app\back\util\MCalcUtil as MCalcUtil;
+use app\back\util\MCalcCalculatorV2 as MCalcCalculatorV2;
+
+class Controller extends AbstractController {
 
 
 	public function calcAction() {
@@ -59,7 +70,7 @@ class ListsController extends Controller {
 					`user_List_x_Metaproduct`.`idList` = '.(int)$chosenList->idList.'
 				;
 			';
-			$list_metaproducts = MCalcUtil::dbrows($sql);
+			$list_metaproducts = Database::instance()->getRows($sql);
 			foreach ( $list_metaproducts as $list_metaproduct ) {
 				$metaproductIds[] = (int)$list_metaproduct->idMetaproduct;
 			}
@@ -80,7 +91,7 @@ class ListsController extends Controller {
 					AND
 					`mkm_Product`.`idMetaproduct` IN ('.implode(',', $metaproductIds).')
 			';
-			$results = MCalcUtil::dbrows($sql);
+			$results = Database::instance()->getRows($sql);
 			foreach ( $results as $result ) {
 				$productIds[] = (int)$result->idProduct;
 			}
@@ -142,7 +153,7 @@ class ListsController extends Controller {
 					`idSeller` ASC
 				;
 			';
-			$res = MCalcUtil::dbrows($sql);
+			$res = Database::instance()->getRows($sql);
 
 			$found_metaproductIds = array();
 
@@ -158,22 +169,30 @@ class ListsController extends Controller {
 
 				$idx = $row->idMetaproduct;
 
-				$__cards[$idx] = isset($__cards[$idx]) ? $__cards[$idx] : new stdClass;
+				$__cards[$idx] = isset($__cards[$idx]) ? $__cards[$idx] : new \stdClass;
 
 				$__cards[$idx]->idMetaproduct = $row->idMetaproduct;
 				$__cards[$idx]->productName = $row->metaproductName;
 
-				$__cards[$idx]->product_ids = isset($__cards[$idx]->product_ids) ? $__cards[$idx]->product_ids : array();
-
-				$__cards[$idx]->product_ids[] = $row->idProduct;
-
+				// wird nicht benoetigt:
+				// $__cards[$idx]->product_ids = isset($__cards[$idx]->product_ids) ? $__cards[$idx]->product_ids : array();
+				// $__cards[$idx]->product_ids[] = $row->idProduct;
 
 				$__cards[$idx]->sellers = isset($__cards[$idx]->sellers) ? $__cards[$idx]->sellers : array();
 
-				$seller = new stdClass;
-				$seller->cost = ($row->price/100.0);
-				$seller->seller_id = (int)$row->idUser;
-				$__cards[$idx]->sellers[] = $seller;
+				$exists = false;
+				foreach ( $__cards[$idx]->sellers as $s ) {
+					if ( $s->seller_id === (int)$row->idUser ) {
+						$exists = true;
+						break;
+					}
+				}
+				if ( !$exists ) {
+					$seller = new \stdClass;
+					$seller->cost = ($row->price/100.0);
+					$seller->seller_id = (int)$row->idUser;
+					$__cards[$idx]->sellers[] = $seller;
+				}
 
 				$row = null;
 				unset($row);
@@ -222,7 +241,7 @@ class ListsController extends Controller {
 
 
 
-			$menu_template = new Template('util/menu-loggedin');
+			$menu_template = new HtmlView('util/menu-loggedin');
 			$menu_template->assign('action_url', Config::get('siteurl').'/');
 			$menu_template->assign('username', $user->getName());
 
@@ -232,7 +251,7 @@ class ListsController extends Controller {
 			$page_content .= $menu_template->render();
 
 			// calculate form
-			$tmpl = new Template('util/calc-form');
+			$tmpl = new HtmlView('util/calc-form');
 			$tmpl->assign('action_url', Config::get('siteurl').'/lists/'.$chosenList->idList.'/calculate/');
 			$tmpl->assign('countrynames', MCalcUtil::CountryNames());
 			$tmpl->assign('card_languages', MCalcUtil::CardLanguages());
@@ -263,9 +282,9 @@ class ListsController extends Controller {
 						`name_en`.`metaproductName` ASC
 					;
 				';
-				$notfound_metaproducts = MCalcUtil::dbrows($sql);
+				$notfound_metaproducts = Database::instance()->getRows($sql);
 
-				$tmpl = new Template('util/metaproducts-list-simple');
+				$tmpl = new HtmlView('util/metaproducts-list-simple');
 				$tmpl->assign('metaproducts', $notfound_metaproducts);
 				$tmpl->assign('headline', 'Mit den gewählten Einstellungen wurden einige Karten nicht gefunden.');
 
@@ -276,7 +295,7 @@ class ListsController extends Controller {
 				$calculator = new MCalcCalculatorV2;
 				$results = $calculator->calculateBestPrices($__cards);
 
-				$tmpl = new Template('util/calc-result');
+				$tmpl = new HtmlView('util/calc-result');
 				$tmpl->assign('result', $results->best);
 				$tmpl->assign('headline', 'Bestes Ergebnis');
 				$tmpl->assign('id', 'best');
@@ -284,7 +303,7 @@ class ListsController extends Controller {
 
 				$best_results = '';
 				foreach ( $results->best_list as $i => $result ) {
-					$tmpl = new Template('util/calc-result');
+					$tmpl = new HtmlView('util/calc-result');
 					$tmpl->assign('result', $result);
 					$tmpl->assign('headline', 'Result '.($i+1));
 					$tmpl->assign('id', 'best_list_'.$i);
@@ -294,7 +313,7 @@ class ListsController extends Controller {
 
 				$all_results = '';
 				foreach ( $results->list as $i => $result ) {
-					$tmpl = new Template('util/calc-result');
+					$tmpl = new HtmlView('util/calc-result');
 					$tmpl->assign('result', $result);
 					$tmpl->assign('headline', 'Result '.($i+1));
 					$tmpl->assign('id', 'list_'.$i);
@@ -303,7 +322,7 @@ class ListsController extends Controller {
 				$page_content .= '<div>'.$all_results.'</div>';
 			}
 
-			$page_template = new Template('main');
+			$page_template = new HtmlView('main');
 			$page_template->assign('header_scripts', $header_scripts);
 			$page_template->assign('header_inline_scripts', $header_inline_scripts);
 			$page_template->assign('header_styles', $header_styles);
@@ -342,7 +361,7 @@ class ListsController extends Controller {
 							`idMetaproduct` IN ('.implode(',', $cleanMetaproductIds).')
 						;
 					';
-					MCalcUtil::dbquery($sql);
+					Database::instance()->query($sql);
 				}
 				break;
 			case 'addCards':
@@ -361,7 +380,7 @@ class ListsController extends Controller {
 						VALUES '.implode(', ', $insert_values).'
 						;
 					';
-					MCalcUtil::dbquery($sql);
+					Database::instance()->query($sql);
 				}
 
 				break;
@@ -375,7 +394,7 @@ class ListsController extends Controller {
 
 
 
-		$menu_template = new Template('util/menu-loggedin');
+		$menu_template = new HtmlView('util/menu-loggedin');
 		$menu_template->assign('action_url', Config::get('siteurl').'/');
 		$menu_template->assign('username', $user->getName());
 
@@ -419,7 +438,7 @@ class ListsController extends Controller {
 					`name_en`.`metaproductName` ASC
 				;
 			';
-			$list_metaproducts = MCalcUtil::dbrows($sql);
+			$list_metaproducts = Database::instance()->getRows($sql);
 			foreach ( $list_metaproducts as &$list_metaproduct ) {
 				// get most recent product image:
 				$sql = '
@@ -439,7 +458,7 @@ class ListsController extends Controller {
 						0, 1
 					;
 				';
-				$imageRow = MCalcUtil::dbgetrow($sql);
+				$imageRow = Database::instance()->getRow($sql);
 
 				$sql = '
 					select
@@ -472,14 +491,14 @@ class ListsController extends Controller {
 						0, 1
 					;
 				';
-				$bestpriceRow = MCalcUtil::dbgetrow($sql);
+				$bestpriceRow = Database::instance()->getRow($sql);
 				$list_metaproduct->bestpriceRow = $bestpriceRow;
 				$list_metaproduct->imageRow = $imageRow;
 
 			}
 
 			// list of products
-			$tmpl = new Template('util/metaproducts-list');
+			$tmpl = new HtmlView('util/metaproducts-list');
 			$tmpl->assign('metaproducts', $list_metaproducts);
 			$tmpl->assign('headline', '"'.$chosenList->name.'"');
 			$tmpl->assign('url', $this->dispatcher->getUrl());
@@ -487,7 +506,7 @@ class ListsController extends Controller {
 			$page_content .= $tmpl->render();
 
 			// calculate form
-			$tmpl = new Template('util/calc-form');
+			$tmpl = new HtmlView('util/calc-form');
 			$tmpl->assign('action_url', Config::get('siteurl').'/lists/'.$chosenList->idList.'/calculate/');
 			$tmpl->assign('countrynames', MCalcUtil::CountryNames());
 			$tmpl->assign('card_languages', MCalcUtil::CardLanguages());
@@ -499,7 +518,7 @@ class ListsController extends Controller {
 
 
 			// add cards form
-			$tmpl = new Template('util/add-metaproducts-form');
+			$tmpl = new HtmlView('util/add-metaproducts-form');
 			$tmpl->assign('action_url', $this->dispatcher->getUrl());
 
 			$page_content .= $tmpl->render();
@@ -507,7 +526,7 @@ class ListsController extends Controller {
 
 
 
-			$page_template = new Template('main');
+			$page_template = new HtmlView('main');
 			$page_template->assign('header_styles', $header_styles);
 			$page_template->assign('page_content', $page_content);
 

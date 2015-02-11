@@ -1,7 +1,5 @@
 <?php
-
-
-
+namespace app\back\util;
 
 class MCalcUtil {
 
@@ -56,67 +54,6 @@ class MCalcUtil {
 			11 => 'Chinesisch (T)',
 		);
 	}
-
-	public static function dbconnect() {
-
-		global $mysqli;
-
-		if ( !$mysqli ) {
-			//conection:
-			$mysqli = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME) or die("Error " . mysqli_error($mysqli));
-			self::dbquery('SET NAMES utf8;');
-		}
-		return $mysqli;
-
-	}
-
-	public static function dbescape( $string ) {
-
-		$mysqli = self::dbconnect();
-		return mysqli_escape_string($mysqli, $string);
-
-	}
-
-	public static function dbquery( $sql ) {
-
-
-		$mysqli = self::dbconnect();
-		$res = mysqli_query($mysqli, $sql);
-		if ( $res ) {
-			return $res;
-		} else {
-			throw new Exception('dbquery fail, SQL: '.$sql);
-		}
-
-	}
-
-	public static function dbgetrow( $sql ) {
-
-		$mysqli = self::dbconnect();
-		$res = self::dbquery($sql);
-		if ( $res ) {
-			$row = mysqli_fetch_object($res);
-			return $row;
-		} else {
-			throw new Exception('dbquery fail, SQL: '.$sql);
-		}
-
-	}
-
-	public static function dbrows( $sql ) {
-		$mysqli = self::dbconnect();
-		$rows = array();
-		$res = self::dbquery($sql);
-		if ( $res === false ) {
-			throw new Exception(mysqli_error());
-		} else {
-			while ( $row = mysqli_fetch_object($res) ) {
-				$rows[] = $row;
-			}
-		}
-		return $rows;
-	}
-
 
 	public static function log( $str ) {
 		$mysqli = self::dbconnect();

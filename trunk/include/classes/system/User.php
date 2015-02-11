@@ -1,4 +1,5 @@
 <?php
+namespace system;
 
 class User {
 
@@ -22,7 +23,7 @@ class User {
 
 
 		$sql = 'SELECT * FROM `user_User` WHERE `idUser` = '.(int)$this->id.';';
-		$row = MCalcUtil::dbgetrow($sql);
+		$row = Database::instance()->getRow($sql);
 
 		if ( !empty($row) ) {
 			$this->loginId = $row->loginId;
@@ -37,7 +38,7 @@ class User {
 
 	public function getLists() {
 		$sql = 'SELECT * FROM `user_List` WHERE `idUser` = '.(int)$this->id.';';
-		return MCalcUtil::dbrows($sql);
+		return Database::instance()->getRows($sql);
 	}
 
 	public function setId( $id ) {

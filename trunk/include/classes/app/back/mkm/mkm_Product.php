@@ -1,5 +1,8 @@
 <?php
 
+namespace app\back\mkm;
+
+use system\Database as Database;
 
 class mkm_Product {
 	
@@ -25,17 +28,17 @@ class mkm_Product {
 			SET
 				`idProduct` = '.(int)$this->_idProduct.',
 				`idMetaproduct` = '.(int)$this->_idMetaproduct.',
-				`image` = "'.MCalcUtil::dbescape($this->_image).'",
-				`expansion` = "'.MCalcUtil::dbescape($this->_expansion).'",
-				`rarity` = "'.MCalcUtil::dbescape($this->_rarity).'"
+				`image` = "'.Database::instance()->escape($this->_image).'",
+				`expansion` = "'.Database::instance()->escape($this->_expansion).'",
+				`rarity` = "'.Database::instance()->escape($this->_rarity).'"
 			ON DUPLICATE KEY UPDATE
 				`idMetaproduct` = '.(int)$this->_idMetaproduct.',
-				`image` = "'.MCalcUtil::dbescape($this->_image).'",
-				`expansion` = "'.MCalcUtil::dbescape($this->_expansion).'",
-				`rarity` = "'.MCalcUtil::dbescape($this->_rarity).'"
+				`image` = "'.Database::instance()->escape($this->_image).'",
+				`expansion` = "'.Database::instance()->escape($this->_expansion).'",
+				`rarity` = "'.Database::instance()->escape($this->_rarity).'"
 			;
 		';
-		MCalcUtil::dbquery($sql);
+		Database::instance()->query($sql);
 
 		// metaproduct eintragen, zumindest erst mal die id
 		$sql = '
@@ -47,7 +50,7 @@ class mkm_Product {
 				`idMetaproduct` = '.(int)$this->_idMetaproduct.'
 			;
 		';
-		MCalcUtil::dbquery($sql);
+		Database::instance()->query($sql);
 
 
 		foreach ( $this->_name as $name ) {
@@ -58,12 +61,12 @@ class mkm_Product {
 					`mkm_Language`
 				SET
 					`idLanguage` = '.(int)$name['idLanguage'].',
-					`languageName` = "'.MCalcUtil::dbescape($name['languageName']).'"
+					`languageName` = "'.Database::instance()->escape($name['languageName']).'"
 				ON DUPLICATE KEY UPDATE
-					`languageName` = "'.MCalcUtil::dbescape($name['languageName']).'"
+					`languageName` = "'.Database::instance()->escape($name['languageName']).'"
 				;
 			';
-			MCalcUtil::dbquery($sql);
+			Database::instance()->query($sql);
 
 
 			// product name eintragen
@@ -73,12 +76,12 @@ class mkm_Product {
 				SET
 					`idProduct` = '.(int)$this->_idProduct.',
 					`idLanguage` = '.(int)$name['idLanguage'].',
-					`productName` = "'.MCalcUtil::dbescape($name['productName']).'"
+					`productName` = "'.Database::instance()->escape($name['productName']).'"
 				ON DUPLICATE KEY UPDATE
-					`productName` = "'.MCalcUtil::dbescape($name['productName']).'"
+					`productName` = "'.Database::instance()->escape($name['productName']).'"
 				;
 			';
-			MCalcUtil::dbquery($sql);
+			Database::instance()->query($sql);
 
 		}
 
@@ -89,12 +92,12 @@ class mkm_Product {
 				`mkm_Category`
 			SET
 				`idCategory` = '.(int)$this->_category['idCategory'].',
-				`categoryName` = "'.MCalcUtil::dbescape($this->_category['categoryName']).'"
+				`categoryName` = "'.Database::instance()->escape($this->_category['categoryName']).'"
 			ON DUPLICATE KEY UPDATE
-				`categoryName` = "'.MCalcUtil::dbescape($this->_category['categoryName']).'"
+				`categoryName` = "'.Database::instance()->escape($this->_category['categoryName']).'"
 			;
 		';
-		MCalcUtil::dbquery($sql);
+		Database::instance()->query($sql);
 
 
 		$sql = '
@@ -105,7 +108,7 @@ class mkm_Product {
 				`idProduct` = '.(int)$this->_idProduct.'
 			;
 		';
-		MCalcUtil::dbquery($sql);
+		Database::instance()->query($sql);
 
 
 

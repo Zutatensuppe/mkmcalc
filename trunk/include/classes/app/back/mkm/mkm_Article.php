@@ -1,7 +1,8 @@
 <?php
 
+namespace app\back\mkm;
 
-
+use system\Database as Database;
 
 class mkm_Article { 
 
@@ -41,7 +42,7 @@ class mkm_Article {
 				`idLanguage` = '.(int)$this->_language['idLanguage'].',
 				`price` = '.(int)$this->_price.',
 				`count` = '.(int)$this->_count.',
-				`condition` = "'.MCalcUtil::dbescape($this->_condition).'",
+				`condition` = "'.Database::instance()->escape($this->_condition).'",
 				`isFoil` = '.($this->_isFoil ? 1 : 0).',
 				`isSigned` = '.($this->_isSigned ? 1 : 0).',
 				`isAltered` = '.($this->_isAltered ? 1 : 0).',
@@ -52,14 +53,14 @@ class mkm_Article {
 				`idLanguage` = '.(int)$this->_language['idLanguage'].',
 				`price` = '.(int)$this->_price.',
 				`count` = '.(int)$this->_count.',
-				`condition` = "'.MCalcUtil::dbescape($this->_condition).'",
+				`condition` = "'.Database::instance()->escape($this->_condition).'",
 				`isFoil` = '.($this->_isFoil ? 1 : 0).',
 				`isSigned` = '.($this->_isSigned ? 1 : 0).',
 				`isAltered` = '.($this->_isAltered ? 1 : 0).',
 				`isPlayset` = '.($this->_isPlayset ? 1 : 0).'
 			;
 		';
-		MCalcUtil::dbquery($sql);
+		Database::instance()->query($sql);
 
 
 		// seller speichern
@@ -68,21 +69,21 @@ class mkm_Article {
 				`mkm_User`
 			SET
 				`idUser` = '.(int)$this->_seller['idUser'].',
-				`username` = "'.MCalcUtil::dbescape($this->_seller['username']).'",
-				`country` = "'.MCalcUtil::dbescape($this->_seller['country']).'",
+				`username` = "'.Database::instance()->escape($this->_seller['username']).'",
+				`country` = "'.Database::instance()->escape($this->_seller['country']).'",
 				`isCommercial` = '.($this->_seller['isCommercial'] ? 1 : 0).',
 				`riskGroup` = '.(int)$this->_seller['riskGroup'].',
 				`reputation` = '.(int)$this->_seller['reputation'].'
 			ON DUPLICATE KEY UPDATE
 				`idUser` = '.(int)$this->_seller['idUser'].',
-				`username` = "'.MCalcUtil::dbescape($this->_seller['username']).'",
-				`country` = "'.MCalcUtil::dbescape($this->_seller['country']).'",
+				`username` = "'.Database::instance()->escape($this->_seller['username']).'",
+				`country` = "'.Database::instance()->escape($this->_seller['country']).'",
 				`isCommercial` = '.($this->_seller['isCommercial'] ? 1 : 0).',
 				`riskGroup` = '.(int)$this->_seller['riskGroup'].',
 				`reputation` = '.(int)$this->_seller['reputation'].'
 			;
 		';
-		MCalcUtil::dbquery($sql);
+		Database::instance()->query($sql);
 
 
 		// language speichern
@@ -91,19 +92,19 @@ class mkm_Article {
 				`mkm_Language`
 			SET
 				`idLanguage` = '.(int)$this->_language['idLanguage'].',
-				`languageName` = "'.MCalcUtil::dbescape($this->_language['languageName']).'"
+				`languageName` = "'.Database::instance()->escape($this->_language['languageName']).'"
 
 			ON DUPLICATE KEY UPDATE
-				`languageName` = "'.MCalcUtil::dbescape($this->_language['languageName']).'"
+				`languageName` = "'.Database::instance()->escape($this->_language['languageName']).'"
 			;
 		';
-		MCalcUtil::dbquery($sql);
+		Database::instance()->query($sql);
 
 
 
 		// kommentare speichern
 		$sql = 'DELETE FROM `mkm_ArticleComment` WHERE `idArticle` = '.(int)$this->_idArticle.';';
-		MCalcUtil::dbquery($sql);
+		Database::instance()->query($sql);
 
 		foreach ( $this->_comments as $comment ) {
 			$sql = '
@@ -111,10 +112,10 @@ class mkm_Article {
 					`mkm_ArticleComment`
 				SET 
 					`idArticle` = '.(int)$this->_idArticle.',
-					`comment` = "'.MCalcUtil::dbescape($comment).'"
+					`comment` = "'.Database::instance()->escape($comment).'"
 				;
 			';
-			MCalcUtil::dbquery($sql);
+			Database::instance()->query($sql);
 
 		}
 

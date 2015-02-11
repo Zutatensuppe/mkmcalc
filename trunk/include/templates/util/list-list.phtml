@@ -14,7 +14,7 @@ foreach ( $this->vars->lists as $list ) {
 	?>
 	<tr>
 		<td>
-			<a href="<?php echo Config::get('siteurl'); ?>/lists/<?php echo $list->idList; ?>/"><?php echo $list->name; ?></a>
+			<a href="<?php echo $this->vars->siteurl; ?>/lists/<?php echo $list->idList; ?>/"><?php echo $list->name; ?></a>
 		</td>
 		<td>
 			<form action="<?php echo $this->vars->action_url; ?>" method="post">
